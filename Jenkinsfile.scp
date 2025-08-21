@@ -63,11 +63,12 @@ pipeline {
                 steps{
                     sh """
                      ssh -i "jenkins.pem" ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com
-                    sudo npm install -g pm2
+                    # sudo npm install -g pm2
+                    sudo sed -i 's|root /var/www/html;|root /var/www/myapp;|' /etc/nginx/sites-enabled/default
                     cd /var/www/server
-                    npm install --production
-                    pm2 start index.js --name myserver
-                    sudo systemctl restart nginx
+                    # npm install --production
+                    # pm2 start index.js --name myserver
+                    systemctl restart nginx
                     """
                 }
             }
