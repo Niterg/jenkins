@@ -39,14 +39,14 @@ pipeline {
                     cp "$EC2_CREDENTIAL" jenkins.pem
                     chmod 400 "jenkins.pem"
                     # ls -a
-                    scp -r all_in_docker/client/build/* -i "jenkins.pem" ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/myapp
+                    scp -o StrictHostKeyChecking=no -i "jenkins.pem" -r all_in_docker/client/build/*  ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/myapp
                     """
                 }
             }
             stage('SCP server to new host'){
                 steps{
                     sh """
-                    scp -r all_in_docker/server/server -i "jenkins.pem" ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/server
+                    scp -i "jenkins.pem" -r all_in_docker/server/server ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/server
                     """
                 }
             }
