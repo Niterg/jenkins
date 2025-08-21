@@ -39,6 +39,7 @@ pipeline {
                     cp "$EC2_CREDENTIAL" jenkins.pem
                     chmod 400 "jenkins.pem"
                     # ls -a
+                    ssh-keyscan -H ec2-3-83-86-69.compute-1.amazonaws.com >> ~/.ssh/known_hosts
                     scp -r all_in_docker/client/build/* -i "jenkins.pem" ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/myapp
                     """
                 }
