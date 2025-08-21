@@ -35,7 +35,7 @@ pipeline {
                 }
                 steps{
                     sh """
-                    cp "EC2_CREDENTIAL" jenkins.pem
+                    cp "$EC2_CREDENTIAL" jenkins.pem
                     chmod 400 "jenkins.pem"
                     scp -r build/* -i "jenkins.pem" ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/myapp
                     """
