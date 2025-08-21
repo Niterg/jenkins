@@ -67,6 +67,7 @@ pipeline {
      post {
         always {
              cleanWs() 
+            echo "Cleaned Workspace"
          }
          success {
              echo 'Pipeline succeeded!'
