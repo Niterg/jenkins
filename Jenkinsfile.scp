@@ -54,7 +54,7 @@ pipeline {
                 steps{
                     sh """
                     ls -a
-                    scp -i "jenkins.pem" -r ./all_in_docker/server ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/server
+                    scp -o StrictHostKeyChecking=no -i "jenkins.pem" -r ./all_in_docker/server/* ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/server
                     """
                 }
             }
