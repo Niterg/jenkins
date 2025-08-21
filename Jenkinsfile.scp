@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+ 
+    tools {nodejs "node 14"}
+      environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') 
+     }
+
+   stages {
+         stage('Checkout') {
+             steps {
+                 checkout scm
+             }
+         }
+         stage('Build Client in NPM') {
+             steps {
+                     script {
+                         sh """
+                         cd all_in_docker/client
+                         npm install
+                        """
+                     }
+                
+             }
+         }
+         stage('Build Server in NPM') {
+             steps {
+                     script {
+                         sh """
+                         cd all_in_docker/server
+                         npm install
+                        """
+                     }
+             }
+         }
+     }
+     post {
+        always {
+             cleanWs() 
+         }
+         success {
+             echo 'Pipeline succeeded!'
+         }
+         failure {
+             echo 'Pipeline failed!'
+         }
+     }
+ }
