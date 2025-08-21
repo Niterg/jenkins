@@ -31,13 +31,6 @@ pipeline {
              }
          }
             stage('Create folder for nginx'){
-                steps{
-                    sh """
-                    ssh -i jenkins.pem ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com "sudo mkdir -p /var/www/myapp && sudo chown -R ubuntu:ubuntu /var/www/myapp"
-                    """
-                }
-            }
-            stage('SCP client to new host'){
                 environment {
                     EC2_CREDENTIAL = credentials('jenkins-pem')
                 }
@@ -45,6 +38,13 @@ pipeline {
                     sh """
                     cp "$EC2_CREDENTIAL" jenkins.pem
                     chmod 400 "jenkins.pem"
+                    ssh -i jenkins.pem ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com "sudo mkdir -p /var/www/myapp && sudo chown -R ubuntu:ubuntu /var/www/myapp"
+                    """
+                }
+            }
+            stage('SCP client to new host'){
+                steps{
+                    sh """
                     # ls -a
                     scp -o StrictHostKeyChecking=no -i "jenkins.pem" -r all_in_docker/client/build/*  ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/myapp
                     """
