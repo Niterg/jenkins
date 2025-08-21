@@ -39,6 +39,8 @@ pipeline {
                     cp "$EC2_CREDENTIAL" jenkins.pem
                     chmod 400 "jenkins.pem"
                     ssh -i jenkins.pem ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com "sudo mkdir -p /var/www/myapp && sudo chown -R ubuntu:ubuntu /var/www/myapp"
+                   ssh -i jenkins.pem ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com \
+"sudo rm -rf /var/www/server && sudo mv /home/ubuntu/server /var/www/"
                     """
                 }
             }
