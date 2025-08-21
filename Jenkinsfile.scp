@@ -37,15 +37,15 @@ pipeline {
                     sh """
                     cp "$EC2_CREDENTIAL" jenkins.pem
                     chmod 400 "jenkins.pem"
-                    ls -a
-                    scp -r build/* -i "jenkins.pem" ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/myapp
+                    # ls -a
+                    scp -r all_in_docker/client/build/* -i "jenkins.pem" ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/myapp
                     """
                 }
             }
             stage('SCP server to new host'){
                 steps{
                     sh """
-                    scp -r server -i "jenkins.pem" ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/server
+                    scp -r all_in_docker/server/server -i "jenkins.pem" ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/server
                     """
                 }
             }
