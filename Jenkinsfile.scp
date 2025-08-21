@@ -37,6 +37,7 @@ pipeline {
                     sh """
                     cp "$EC2_CREDENTIAL" jenkins.pem
                     chmod 400 "jenkins.pem"
+                    ls -a
                     scp -r build/* -i "jenkins.pem" ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/myapp
                     """
                 }
@@ -56,6 +57,7 @@ pipeline {
                     cd /var/www/server
                     npm install --production
                     pm2 start index.js --name myserver
+                    sudo systemctl restart nginx
                     """
                 }
             }
