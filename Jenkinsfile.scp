@@ -53,7 +53,7 @@ pipeline {
             stage('SCP server to new host'){
                 steps{
                     sh """
-                    scp -i "jenkins.pem" -r all_in_docker/server/server ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/server
+                    scp -i "jenkins.pem" -r all_in_docker/server ubuntu@ec2-3-83-86-69.compute-1.amazonaws.com:/var/www/server
                     """
                 }
             }
